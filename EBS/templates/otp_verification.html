@@ -1,0 +1,74 @@
+<!-- otp_verification.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+
+    <style>
+            body {
+                background-color: #494252;
+                color: #ffffff;
+                font-family: 'Arial', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+    
+            h2 {
+                color: #38ba96;
+            }
+    
+            form {
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+    
+            label {
+                display: block;
+                margin-bottom: 10px;
+                color: #494252;
+            }
+    
+            input {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                box-sizing: border-box;
+                border: 1px solid #38ba96;
+                border-radius: 5px;
+            }
+    
+            button {
+                background-color: #38ba96;
+                color: #ffffff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+    
+            button:hover {
+                background-color: #494252;
+            }
+    </style>
+</head>
+<body>
+    <form method="POST" action="{{ url_for('auth.verify_otp', voter_id=voter_id) }}">
+        <h2>OTP Verification</h2>
+        <div>
+            <label for="otp">Enter OTP:</label>
+            <input type="text" id="otp" name="otp" required>
+        </div>
+        <button type="submit">Verify OTP</button>
+    </form>
+</body>
+</html>

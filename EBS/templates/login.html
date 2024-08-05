@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %} 
+    <div class="login-form">
+        <div class="form-image">
+            <img src="{{ url_for('static', filename='images/hero2.jpg') }}" alt="hero-image" width="450">
+        </div>
+        <div>
+            <form method="POST" action="/login">
+                <h2 id="form-title">Welcome! Login as Voter</h2>
+                <input type="email" id="email" name="email" placeholder="ex: abc.cs21@sbjit.edu.in" required="required" />
+                <button type="submit" class="submit-button">Login</button>
+                Or<br>
+                <a href="{{ url_for('auth.loginAdmin') }}">Login as Admin</a>
+            </form>
+        </div>
+    
+        
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toastMessages = document.querySelectorAll('.toast-message');
+
+            toastMessages.forEach(function (toast) {
+                toast.style.display = 'block';
+                setTimeout(function () {
+                    toast.style.display = 'none';
+                }, 5000); // Hide after 5 seconds, adjust as needed
+            });
+        });
+    </script>
+{% endblock %}

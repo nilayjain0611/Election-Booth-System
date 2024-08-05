@@ -1,0 +1,157 @@
+* {
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+
+}
+body{
+    background-color: #e3ecf3;
+
+}
+a{
+    text-decoration: none;
+}
+.nav{
+    padding: 10px;
+    top: 0;
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 2px solid #38ba96;
+    border-radius: 20px;
+}
+.home{
+    position: relative;
+    background-color: #e3ecf3;
+    height: 80vh;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+.hero-section{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    
+}
+.hero-section p{
+        font-size: 1.5rem;
+    
+}
+#tagline{
+    color: brown;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+#hero-title{
+    color: #38ba96;
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+.button-primary{
+    margin-top: 20px;
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #38ba96;
+    font-size:1.4rem ;
+    color: white;
+    margin-top: 2rem;
+    
+}
+.button-primary:hover{
+    background-color: #e3ecf3;
+    cursor: pointer;
+    color: #38ba96;
+    border:2px solid #38ba96;
+    transition:  0.1s ease;
+}
+
+.hero-image{
+    position: relative;
+    display: flex;
+    margin:auto;
+    padding: 20px;
+    
+}
+
+.login-form {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    padding: 20px;
+    align-items: center;
+    height: 80vh;
+    
+}
+.login-form input{
+    width: 250px;
+    height: 20px;
+    padding: 10px;
+    border-radius: 20px;
+
+}
+.form-image{
+    position: relative;
+    display: flex;
+    padding: 20px;
+}
+.login-form form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: 200px;
+    width: 500px;
+}
+.login-form h2{
+    color: #38ba96;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+
+}
+.submit-button{
+    width: 60px;
+    height:30px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #38ba96;
+}
+.toast-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toast-message {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    margin-bottom: 15px;
+    display: none;
+    border-radius: 5px;
+    position: relative;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.toast-message.error {
+    background-color: #f44336;
+}
+
+/* Adjust this style for pop transition */
+.toast-message.pop {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+
+/* Create_nomination_css */
+/* Add this CSS to your style.css file */

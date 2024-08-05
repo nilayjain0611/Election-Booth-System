@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %} 
+    <div class="login-form">
+        <div class="form-image">
+            <img src="{{ url_for('static', filename='images/hero2.jpg') }}" alt="hero-image" width="450">
+        </div>
+        <div>
+            <form method="POST" action="/login-admin">
+                <h2 id="form-title">Welcome! Login as Admin</h2>
+                <input type="email" id="email" name="email" placeholder="Enter the Username" required="required" />
+                <input type="password" id="password" name="password" placeholder="Enter the Password" required="required" />
+                <button type="submit" class="submit-button">Login</button>
+                Or<br>
+                <a href="{{ url_for('auth.login') }}">Login as Voter</a>
+            </form>
+        </div>
+    
+    </div>
+{% endblock %}

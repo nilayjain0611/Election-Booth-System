@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Election-Booth-System</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+
+    <style>
+    .toast-messages {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .toast-message {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        margin-bottom: 15px;
+        display: none;
+        border-radius: 5px;
+        position: relative;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .toast-message.error {
+        background-color: #f44336;
+    }
+
+    /* Adjust this style for pop transition */
+    .toast-message.pop {
+        transform: translateY(0);
+        opacity: 1;
+    }
+</style>
+
+    {% endblock %}
+</head>
+<body>
+    <div class="nav">
+        <a href="{{ url_for('main.index') }}">Home</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+            <a href="{{ url_for('elections.election_dashboard') }}">Dashboard</a>
+            <span>Welcome! {{ current_user.name }}</span>
+            {% endif %}
+            
+    </div>
+
+    <!-- Toast Messages -->
+    <div class="toast-messages">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="toast-message {% if 'danger' in message %}error{% endif %}">
+                        {{ message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    {% block content %} {% endblock %}
+
+    <!-- Add this JavaScript for toast messages -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toastMessages = document.querySelectorAll('.toast-message');
+
+            toastMessages.forEach(function (toast) {
+                toast.style.display = 'block';
+                toast.classList.add('pop'); // Add this line
+                setTimeout(function () {
+                    toast.style.display = 'none';
+                }, 5000); // Hide after 5 seconds, adjust as needed
+            });
+        });
+    </script>
+</body>
+</html>

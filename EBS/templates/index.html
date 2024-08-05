@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %} 
+    <div class="home"> 
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='images/hero2.jpg') }}" alt="hero-image" width="450" height="450">
+        </div>
+        <div class='hero-section'>
+            <h1 id="hero-title">Welcome to Online-Voting!</h1>
+            <p id='hero-content'>
+                Cast your vote and be the voice of transformation. Explore candidate profiles, join the democratic movement, and make a difference.<br>
+                <span id="tagline"> Your vote, your campus, your future.</span><br>
+                Let the journey to a better SBJIT begin!
+                <div>
+                    <a href="{{ url_for('auth.login') }}" class="button-primary">Login</a>
+                </div>
+            </p>
+        </div>
+    </div>
+{% endblock %}

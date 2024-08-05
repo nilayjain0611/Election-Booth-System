@@ -1,0 +1,95 @@
+<!-- templates/election_page.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ election.title }}</h1>
+    <p>Start Date: {{ election.start_date }}</p>
+    <p>End Date: {{ election.end_date }}</p>
+
+    <h2>Nominees</h2>
+
+    {% for post in ['President', 'Vice President', 'Secretary', 'Vice Secretary', 'Treasurer'] %}
+      <h3>{{ post }}</h3>
+
+      <div class="nominee-container">
+        {% for nominee in election.nominees if nominee.post == post %}
+          <div class="nominee-card">
+            <h4>{{ nominee.name }}</h4>
+            <p>{{ nominee.bio }}</p>
+            <p>Post: {{ nominee.post }}</p>
+            <p>Vote Count: {{ nominee.votes_count }}</p>
+
+            {% if current_user.is_authenticated and not current_user.has_voted(election.id, nominee.id) %}
+              <form action="{{ url_for('elections.election_page', election_id=election.id) }}" method="post">
+                <input type="hidden" name="nominee" value="{{ nominee.id }}">
+                <input type="hidden" name="nominee_post" value="{{ nominee.post }}">
+                <button type="submit" class="btn btn-success">Vote</button>
+              </form>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    {% if current_user.is_authenticated and not current_user.has_voted(election.id) %}
+      <form action="{{ url_for('elections.election_page', election_id=election.id) }}" method="post">
+        <button type="submit" class="btn btn-primary">Submit Poll</button>
+      </form>
+    {% endif %}
+    <a href="{{ url_for('elections.election_dashboard') }}" class="btn btn-secondary">Exit Election</a>
+  </div>
+
+  <style>
+    .container {
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: center;
+      display: flex ;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .nominee-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .nominee-card {
+      border: 1px solid #e3ecf3;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 2px;
+      width: calc(50% - 20px);
+      box-sizing: border-box;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      color: #fff;
+    }
+  </style>
+  
+{% endblock %}

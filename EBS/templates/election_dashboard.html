@@ -1,0 +1,76 @@
+<!-- templates/election_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="main_container">
+  <h1>Ongoing Elections</h1>
+
+  <div class="election-container">
+    {% for election in elections %}
+      <div class="election-card">
+        <h2>{{ election.title }}</h2>
+        <p>Start Date: {{ election.start_date }}</p>
+        <p>End Date: {{ election.end_date }}</p>
+
+        {% if current_user.is_authenticated and not current_user.is_superuser %}
+          <form action="{{ url_for('elections.election_page', election_id=election.id) }}" method="post">
+            <button type="submit" class="btn btn-primary">Enter Election</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% if current_user.is_authenticated and current_user.id == 1008 %}
+        <a href="{{ url_for('elections.create_nomination') }}" class="btn btn-primary">Add Election</a>
+      {% endif %}
+  </div>
+  <style>
+    .main_container{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    a{
+      width: 200px;
+      text-align: center;
+    }
+    .election-container {
+      margin-top:10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      justify-content: center;
+    }
+
+    .election-card {
+      border: 1px solid #e3ecf3;
+      padding: 20px;
+      width: 40%;
+      box-sizing: border-box;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background-color: #38ba96;
+      color: #fff;
+    }
+    h1{
+      text-align: center;
+      margin:20px;
+    }
+  </style>
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Create Nomination</h1>
+
+  <form method="post" action="{{ url_for('elections.create_nomination') }}">
+    <label for="election_title">Election Title:</label>
+    <input type="text" name="election_title" required>
+
+    <div class="date-container">
+      <div class="half-width">
+        <label for="start_date">Start Date:</label>
+        <input type="date" name="start_date" required>
+      </div>
+
+      <div class="half-width">
+        <label for="end_date">End Date:</label>
+        <input type="date" name="end_date" required>
+      </div>
+    </div>
+
+    <h2>Nominees</h2>
+
+    <div id="nominee-container">
+      <!-- Nominee details will be dynamically added here -->
+    </div>
+
+    <button type="button" id="add-nominee-btn" class="btn btn-primary">Add Nominee</button>
+    <button type="submit" class="btn btn-primary">Create Election</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const nomineeContainer = document.getElementById('nominee-container');
+      const addNomineeBtn = document.getElementById('add-nominee-btn');
+
+      let nomineeCount = 1;
+
+      addNomineeBtn.addEventListener('click', function () {
+        nomineeCount++;
+
+        const newNominee = document.createElement('div');
+        newNominee.classList.add('nominee');
+
+        newNominee.innerHTML = `
+          <div class="nominee-details">
+            <label for="name_${nomineeCount}">Name:</label>
+            <input type="text" name="name_${nomineeCount}" required>
+
+            <label for="usn_${nomineeCount}">USN:</label>
+            <input type="text" name="usn_${nomineeCount}" required>
+
+            <label for="post_${nomineeCount}">Post:</label>
+            <select name="post_${nomineeCount}" required>
+              <option value="President">President</option>
+              <option value="Vice-President">Vice-President</option>
+              <option value="Secretary">Secretary</option>
+              <option value="Vice-Secretary">Vice-Secretary</option>
+              <option value="Treasurer">Treasurer</option>
+            </select>
+
+            <label for="bio_${nomineeCount}">Bio:</label>
+            <textarea name="bio_${nomineeCount}" required></textarea>
+          </div>
+          <button type="button" class="remove-nominee-btn" data-nominee-id="${nomineeCount}">Remove</button>
+        `;
+
+        nomineeContainer.appendChild(newNominee);
+
+        // Add event listener for the remove button
+        const removeNomineeBtn = newNominee.querySelector('.remove-nominee-btn');
+        removeNomineeBtn.addEventListener('click', function () {
+          nomineeContainer.removeChild(newNominee);
+        });
+      });
+    });
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'monospace';
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    form {
+      background: #ffffff;
+      width: 70%;
+      margin: 20px auto; /* Center the form with auto margins */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #494252;
+      margin-bottom: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #494252;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #494252;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #38ba96;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical; /* Allow vertical resizing */
+      height: 100px; /* Set a fixed height */
+    }
+
+    .date-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .half-width {
+      flex: 1;
+    }
+
+    .nominee {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nominee-details {
+      display: flex;
+      flex-direction: column; /* Updated to column */
+      gap: 10px;
+    }
+
+    .remove-nominee-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #ff0000;
+      cursor: pointer;
+      width: fit-content; /* Adjusted to fit the content */
+      align-self: flex-end; /* Align to the right */
+    }
+
+    .remove-nominee-btn:hover {
+      color: #ffffff;
+      background-color: #ff0000;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #38ba96;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #494252;
+    }
+  </style>
+{% endblock %}
